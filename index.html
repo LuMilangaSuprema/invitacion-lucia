@@ -3,13 +3,1220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis 15 - Lucía</title>
+
+    <title>Lucía · Mis XV</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* =========================
+           VARIABLES
+        ========================= */
+
+        :root {
+            --rojo: #8d1f2d;
+            --rojo-oscuro: #57121b;
+            --rojo-claro: #b83b4a;
+
+            --crema: #f8f0e4;
+            --crema-oscura: #ead9c4;
+
+            --rosa: #d9a6a6;
+            --rosa-claro: #efd1cf;
+
+            --texto: #3d2424;
+            --blanco: #fffaf4;
+
+            --sombra: rgba(70, 20, 20, 0.15);
+        }
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--crema);
+            color: var(--texto);
+            transition: background 0.4s, color 0.4s;
+        }
+
+        body.dark {
+            --crema: #181011;
+            --crema-oscura: #241719;
+            --texto: #f8e9dc;
+            --blanco: #211517;
+            --rosa-claro: #46272b;
+            --sombra: rgba(0, 0, 0, 0.4);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================
+           BOTONES FLOTANTES
+        ========================= */
+
+        .floating-buttons {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+
+        .circle-button {
+            width: 43px;
+            height: 43px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            background: rgba(90, 20, 25, 0.75);
+            color: white;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        /* =========================
+           PORTADA
+        ========================= */
+
+        .hero {
+            min-height: 100svh;
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(255,200,200,0.10), transparent 35%),
+                linear-gradient(145deg, #58121c, #8d1f2d 55%, #5d111b);
+            color: white;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 25px;
+            border: 1px solid rgba(255,235,215,0.4);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 35px 25px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .small-title {
+            font-size: 13px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(75px, 23vw, 150px);
+            line-height: 0.75;
+            font-weight: 500;
+            letter-spacing: -5px;
+        }
+
+        .hero h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(28px, 8vw, 52px);
+            font-weight: 400;
+            font-style: italic;
+            margin-top: 25px;
+        }
+
+        .date {
+            margin-top: 25px;
+            font-size: 14px;
+            letter-spacing: 4px;
+        }
+
+        .hero-rose {
+            font-size: 35px;
+            margin: 25px 0;
+            opacity: 0.9;
+        }
+
+        .open-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 28px;
+            border: 1px solid rgba(255,255,255,0.65);
+            border-radius: 50px;
+            color: white;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            transition: 0.3s;
+            letter-spacing: 2px;
+            font-size: 12px;
+        }
+
+        .open-button:hover {
+            background: white;
+            color: var(--rojo);
+            transform: translateY(-3px);
+        }
+
+        /* =========================
+           DECORACIÓN
+        ========================= */
+
+        .rose-decoration {
+            position: absolute;
+            font-size: 75px;
+            opacity: 0.16;
+            pointer-events: none;
+        }
+
+        .rose-one {
+            top: 5%;
+            left: 5%;
+            transform: rotate(-20deg);
+        }
+
+        .rose-two {
+            bottom: 4%;
+            right: 4%;
+            transform: rotate(20deg);
+        }
+
+        /* =========================
+           SECCIONES
+        ========================= */
+
+        section {
+            padding: 85px 22px;
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title span {
+            display: block;
+            color: var(--rojo);
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(42px, 10vw, 70px);
+            font-weight: 500;
+            line-height: 0.9;
+        }
+
+        .section-title p {
+            max-width: 550px;
+            margin: 20px auto 0;
+            opacity: 0.75;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           FRASE
+        ========================= */
+
+        .quote-section {
+            background: var(--rojo);
+            color: white;
+            max-width: none;
+            text-align: center;
+        }
+
+        .quote {
+            max-width: 700px;
+            margin: auto;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(30px, 7vw, 52px);
+            font-style: italic;
+            line-height: 1.15;
+        }
+
+        /* =========================
+           DATOS DEL EVENTO
+        ========================= */
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .event-card {
+            background: rgba(255,255,255,0.5);
+            border: 1px solid var(--crema-oscura);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--sombra);
+        }
+
+        .event-card .icon {
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .event-card h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 27px;
+            font-weight: 600;
+        }
+
+        .event-card p {
+            margin-top: 8px;
+            opacity: 0.75;
+            font-size: 14px;
+        }
+
+        /* =========================
+           COUNTDOWN
+        ========================= */
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .time-box {
+            text-align: center;
+            padding: 22px 8px;
+            background: var(--blanco);
+            border: 1px solid var(--crema-oscura);
+        }
+
+        .time-box strong {
+            display: block;
+            font-family: "Cormorant Garamond", serif;
+            color: var(--rojo);
+            font-size: 42px;
+        }
+
+        .time-box span {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* =========================
+           BOTONES GENERALES
+        ========================= */
+
+        .main-button {
+            display: inline-block;
+            background: var(--rojo);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .main-button:hover {
+            background: var(--rojo-oscuro);
+            transform: translateY(-2px);
+        }
+
+        .center {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* =========================
+           DRESS CODE
+        ========================= */
+
+        .dress-card {
+            max-width: 650px;
+            margin: auto;
+            padding: 45px 25px;
+            background: var(--blanco);
+            border: 1px solid var(--crema-oscura);
+            text-align: center;
+        }
+
+        .dress-card h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 42px;
+            color: var(--rojo);
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           REGALOS
+        ========================= */
+
+        .gift {
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+            padding: 50px 25px;
+            background: linear-gradient(135deg, var(--rosa-claro), var(--crema-oscura));
+        }
+
+        .gift-icon {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .gift h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           GALERÍA
+        ========================= */
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .photo {
+            aspect-ratio: 1 / 1.15;
+            background:
+                linear-gradient(135deg, var(--rosa-claro), var(--crema-oscura));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--rojo);
+            font-family: "Cormorant Garamond", serif;
+            font-size: 20px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* =========================
+           FORMULARIO
+        ========================= */
+
+        .form-box {
+            max-width: 650px;
+            margin: auto;
+            padding: 40px 25px;
+            background: var(--blanco);
+            border: 1px solid var(--crema-oscura);
+            text-align: center;
+        }
+
+        .form-box h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           MÚSICA
+        ========================= */
+
+        .music-player {
+            max-width: 550px;
+            margin: auto;
+            background: var(--rojo);
+            color: white;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .music-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: var(--crema);
+            color: var(--rojo);
+            font-size: 18px;
+        }
+
+        .music-info strong {
+            display: block;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 22px;
+        }
+
+        .music-info span {
+            font-size: 12px;
+            opacity: 0.75;
+        }
+
+        /* =========================
+           MAPA
+        ========================= */
+
+        .map-placeholder {
+            min-height: 300px;
+            background:
+                linear-gradient(rgba(141,31,45,0.15), rgba(141,31,45,0.15)),
+                var(--crema-oscura);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: var(--rojo-oscuro);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        footer h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 55px;
+            font-weight: 400;
+        }
+
+        footer p {
+            margin-top: 10px;
+            opacity: 0.75;
+        }
+
+        /* =========================
+           ANIMACIONES
+        ========================= */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            section {
+                padding: 70px 18px;
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .countdown {
+                gap: 7px;
+            }
+
+            .time-box strong {
+                font-size: 30px;
+            }
+
+            .time-box span {
+                font-size: 8px;
+            }
+
+            .hero::before {
+                inset: 15px;
+            }
+
+            .music-player {
+                padding: 18px;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
 
-    <h1>Lucía</h1>
-    <h2>Mis 15</h2>
-    <p>24 de octubre de 2026</p>
+    <!-- BOTONES -->
+    <div class="floating-buttons">
+        <button class="circle-button" onclick="toggleDark()" aria-label="Cambiar modo">
+            ◐
+        </button>
+
+        <button class="circle-button" onclick="toggleMusic()" aria-label="Música">
+            ♫
+        </button>
+    </div>
+
+
+    <!-- =========================
+         PORTADA
+    ========================= -->
+
+    <header class="hero">
+
+        <div class="rose-decoration rose-one">🌹</div>
+        <div class="rose-decoration rose-two">🌹</div>
+
+        <div class="hero-content">
+
+            <div class="small-title">
+                Una noche para recordar
+            </div>
+
+            <h1>LUCÍA</h1>
+
+            <h2>Mis XV</h2>
+
+            <div class="hero-rose">❦</div>
+
+            <div class="date">
+                24 · 10 · 2026
+            </div>
+
+            <a href="#inicio" class="open-button">
+                ABRIR INVITACIÓN
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main id="inicio">
+
+        <!-- =========================
+             FRASE
+        ========================= -->
+
+        <section class="quote-section">
+
+            <div class="quote">
+                “Hay momentos que merecen
+                quedarse para siempre.”
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             EVENTO
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Guardá la fecha</span>
+
+                <h2>El evento</h2>
+
+                <p>
+                    Quiero compartir esta noche tan especial
+                    con las personas que forman parte de mi vida.
+                </p>
+
+            </div>
+
+            <div class="event-grid">
+
+                <div class="event-card">
+
+                    <div class="icon">♡</div>
+
+                    <h3>Fecha</h3>
+
+                    <p>
+                        Sábado<br>
+                        24 de octubre de 2026
+                    </p>
+
+                </div>
+
+                <div class="event-card">
+
+                    <div class="icon">⌖</div>
+
+                    <h3>Lugar</h3>
+
+                    <p>
+                        Próximamente<br>
+                        Dirección del evento
+                    </p>
+
+                </div>
+
+                <div class="event-card">
+
+                    <div class="icon">◷</div>
+
+                    <h3>Horario</h3>
+
+                    <p>
+                        Próximamente<br>
+                        Hora de comienzo
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COUNTDOWN
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Falta poquito</span>
+
+                <h2>Cuenta regresiva</h2>
+
+            </div>
+
+            <div class="countdown">
+
+                <div class="time-box">
+                    <strong id="days">00</strong>
+                    <span>Días</span>
+                </div>
+
+                <div class="time-box">
+                    <strong id="hours">00</strong>
+                    <span>Horas</span>
+                </div>
+
+                <div class="time-box">
+                    <strong id="minutes">00</strong>
+                    <span>Minutos</span>
+                </div>
+
+                <div class="time-box">
+                    <strong id="seconds">00</strong>
+                    <span>Segundos</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             MÚSICA
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Dale play</span>
+
+                <h2>Una canción</h2>
+
+            </div>
+
+            <div class="music-player">
+
+                <button class="music-button" onclick="toggleMusic()">
+                    ▶
+                </button>
+
+                <div class="music-info">
+
+                    <strong>Mi canción</strong>
+
+                    <span>
+                        Tocá play para escuchar
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!--
+            IMPORTANTE:
+            Más adelante agregaremos aquí
+            el archivo de música.
+            -->
+
+        </section>
+
+
+        <!-- =========================
+             UBICACIÓN
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>¿Dónde?</span>
+
+                <h2>Ubicación</h2>
+
+                <p>
+                    Acá aparecerá el mapa del lugar
+                    y un botón para abrirlo en Google Maps.
+                </p>
+
+            </div>
+
+            <div class="map-placeholder">
+
+                <div>
+
+                    <h3 style="font-family: Cormorant Garamond; font-size: 40px;">
+                        📍 Lugar del evento
+                    </h3>
+
+                    <p style="margin: 15px 0;">
+                        Dirección próximamente
+                    </p>
+
+                    <a
+                        href="#"
+                        class="main-button"
+                    >
+                        ABRIR MAPA
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DRESS CODE
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Para la ocasión</span>
+
+                <h2>Dress code</h2>
+
+            </div>
+
+            <div class="dress-card">
+
+                <div style="font-size:45px;">
+                    ♡
+                </div>
+
+                <h3>Elegante</h3>
+
+                <p>
+                    Vestite como te haga sentir cómodo/a
+                    y disfrutá de la noche.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             REGALOS
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Si querés</span>
+
+                <h2>Regalos</h2>
+
+            </div>
+
+            <div class="gift">
+
+                <div class="gift-icon">
+                    🎁
+                </div>
+
+                <h3>Un detalle especial</h3>
+
+                <p>
+                    Lo más importante es que estés conmigo
+                    para compartir este día.
+                </p>
+
+                <div style="margin-top:20px;">
+                    Próximamente agregaremos
+                    la información para regalos.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             GALERÍA
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Algunos recuerdos</span>
+
+                <h2>Galería</h2>
+
+                <p>
+                    Acá vamos a colocar tus fotos.
+                </p>
+
+            </div>
+
+            <div class="gallery">
+
+                <div class="photo">
+                    Foto 01
+                </div>
+
+                <div class="photo">
+                    Foto 02
+                </div>
+
+                <div class="photo">
+                    Foto 03
+                </div>
+
+                <div class="photo">
+                    Foto 04
+                </div>
+
+                <div class="photo">
+                    Foto 05
+                </div>
+
+                <div class="photo">
+                    Foto 06
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONFIRMACIÓN
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Necesito saber de vos</span>
+
+                <h2>¿Venís?</h2>
+
+                <p>
+                    Confirmá tu asistencia y contame
+                    si necesitás que tengamos en cuenta
+                    alguna restricción alimentaria.
+                </p>
+
+            </div>
+
+            <div class="form-box">
+
+                <h3>Confirmación</h3>
+
+                <p>
+                    Próximamente conectaremos este botón
+                    con el formulario de invitados.
+                </p>
+
+                <div class="center">
+
+                    <a href="#" class="main-button">
+                        CONFIRMAR ASISTENCIA
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CANCIONES
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Elegí una</span>
+
+                <h2>Playlist</h2>
+
+                <p>
+                    ¿Qué canción no puede faltar?
+                </p>
+
+            </div>
+
+            <div class="form-box">
+
+                <div style="font-size:45px;">
+                    ♪
+                </div>
+
+                <h3>Sugerí una canción</h3>
+
+                <p>
+                    Próximamente vas a poder
+                    dejar tu canción favorita.
+                </p>
+
+                <div class="center">
+
+                    <a href="#" class="main-button">
+                        SUGERIR CANCIÓN
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ÁLBUM
+        ========================= -->
+
+        <section>
+
+            <div class="section-title">
+
+                <span>Después de la fiesta</span>
+
+                <h2>Compartamos recuerdos</h2>
+
+                <p>
+                    Subí tus fotos y ayudame a guardar
+                    todos los momentos de esta noche.
+                </p>
+
+            </div>
+
+            <div class="center">
+
+                <a href="#" class="main-button">
+                    📸 ABRIR ÁLBUM
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <h2>Gracias ♡</h2>
+
+        <p>
+            Por formar parte de este momento.
+        </p>
+
+        <p style="margin-top:30px;">
+            LUCÍA · MIS XV · 2026
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* =========================
+           CUENTA REGRESIVA
+        ========================= */
+
+        const targetDate =
+            new Date("October 24, 2026 21:00:00").getTime();
+
+        function updateCountdown() {
+
+            const now = new Date().getTime();
+
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+
+                document.getElementById("days").textContent = "00";
+                document.getElementById("hours").textContent = "00";
+                document.getElementById("minutes").textContent = "00";
+                document.getElementById("seconds").textContent = "00";
+
+                return;
+            }
+
+            const days =
+                Math.floor(difference / (1000 * 60 * 60 * 24));
+
+            const hours =
+                Math.floor(
+                    (difference % (1000 * 60 * 60 * 24))
+                    / (1000 * 60 * 60)
+                );
+
+            const minutes =
+                Math.floor(
+                    (difference % (1000 * 60 * 60))
+                    / (1000 * 60)
+                );
+
+            const seconds =
+                Math.floor(
+                    (difference % (1000 * 60))
+                    / 1000
+                );
+
+            document.getElementById("days").textContent =
+                String(days).padStart(2, "0");
+
+            document.getElementById("hours").textContent =
+                String(hours).padStart(2, "0");
+
+            document.getElementById("minutes").textContent =
+                String(minutes).padStart(2, "0");
+
+            document.getElementById("seconds").textContent =
+                String(seconds).padStart(2, "0");
+        }
+
+        updateCountdown();
+
+        setInterval(updateCountdown, 1000);
+
+
+        /* =========================
+           MODO OSCURO
+        ========================= */
+
+        function toggleDark() {
+
+            document.body.classList.toggle("dark");
+
+            localStorage.setItem(
+                "modoOscuro",
+                document.body.classList.contains("dark")
+            );
+
+        }
+
+        if (
+            localStorage.getItem("modoOscuro") === "true"
+        ) {
+
+            document.body.classList.add("dark");
+
+        }
+
+
+        /* =========================
+           MÚSICA
+        ========================= */
+
+        let musicPlaying = false;
+
+        function toggleMusic() {
+
+            /*
+            Acá agregaremos posteriormente
+            la canción real.
+
+            Por ahora solamente cambia
+            el estado del botón.
+            */
+
+            musicPlaying = !musicPlaying;
+
+            const buttons =
+                document.querySelectorAll(".music-button");
+
+            buttons.forEach(button => {
+
+                button.textContent =
+                    musicPlaying ? "❚❚" : "▶";
+
+            });
+
+        }
+
+    </script>
 
 </body>
-</html>
+                    </html>
