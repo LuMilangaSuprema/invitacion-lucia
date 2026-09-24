@@ -1,1222 +1,1492 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Lucía · Mis XV</title>
-
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <style>
-
-        /* =========================
-           VARIABLES
-        ========================= */
-
-        :root {
-            --rojo: #8d1f2d;
-            --rojo-oscuro: #57121b;
-            --rojo-claro: #b83b4a;
-
-            --crema: #f8f0e4;
-            --crema-oscura: #ead9c4;
-
-            --rosa: #d9a6a6;
-            --rosa-claro: #efd1cf;
-
-            --texto: #3d2424;
-            --blanco: #fffaf4;
-
-            --sombra: rgba(70, 20, 20, 0.15);
-        }
-
-        /* =========================
-           RESET
-        ========================= */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: "DM Sans", sans-serif;
-            background: var(--crema);
-            color: var(--texto);
-            transition: background 0.4s, color 0.4s;
-        }
-
-        body.dark {
-            --crema: #181011;
-            --crema-oscura: #241719;
-            --texto: #f8e9dc;
-            --blanco: #211517;
-            --rosa-claro: #46272b;
-            --sombra: rgba(0, 0, 0, 0.4);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button {
-            font-family: inherit;
-        }
-
-        /* =========================
-           BOTONES FLOTANTES
-        ========================= */
-
-        .floating-buttons {
-            position: fixed;
-            top: 18px;
-            right: 18px;
-            z-index: 1000;
-            display: flex;
-            gap: 8px;
-        }
-
-        .circle-button {
-            width: 43px;
-            height: 43px;
-            border: 1px solid rgba(255,255,255,0.4);
-            border-radius: 50%;
-            background: rgba(90, 20, 25, 0.75);
-            color: white;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            font-size: 17px;
-        }
-
-        /* =========================
-           PORTADA
-        ========================= */
-
-        .hero {
-            min-height: 100svh;
-            position: relative;
-            overflow: hidden;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-
-            background:
-                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 30%),
-                radial-gradient(circle at 80% 80%, rgba(255,200,200,0.10), transparent 35%),
-                linear-gradient(145deg, #58121c, #8d1f2d 55%, #5d111b);
-            color: white;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 25px;
-            border: 1px solid rgba(255,235,215,0.4);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 35px 25px;
-            animation: fadeIn 1.5s ease;
-        }
-
-        .small-title {
-            font-size: 13px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            opacity: 0.85;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(75px, 23vw, 150px);
-            line-height: 0.75;
-            font-weight: 500;
-            letter-spacing: -5px;
-        }
-
-        .hero h2 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(28px, 8vw, 52px);
-            font-weight: 400;
-            font-style: italic;
-            margin-top: 25px;
-        }
-
-        .date {
-            margin-top: 25px;
-            font-size: 14px;
-            letter-spacing: 4px;
-        }
-
-        .hero-rose {
-            font-size: 35px;
-            margin: 25px 0;
-            opacity: 0.9;
-        }
-
-        .open-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 15px 28px;
-            border: 1px solid rgba(255,255,255,0.65);
-            border-radius: 50px;
-            color: white;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(8px);
-            transition: 0.3s;
-            letter-spacing: 2px;
-            font-size: 12px;
-        }
-
-        .open-button:hover {
-            background: white;
-            color: var(--rojo);
-            transform: translateY(-3px);
-        }
-
-        /* =========================
-           DECORACIÓN
-        ========================= */
-
-        .rose-decoration {
-            position: absolute;
-            font-size: 75px;
-            opacity: 0.16;
-            pointer-events: none;
-        }
-
-        .rose-one {
-            top: 5%;
-            left: 5%;
-            transform: rotate(-20deg);
-        }
-
-        .rose-two {
-            bottom: 4%;
-            right: 4%;
-            transform: rotate(20deg);
-        }
-
-        /* =========================
-           SECCIONES
-        ========================= */
-
-        section {
-            padding: 85px 22px;
-            max-width: 1050px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 45px;
-        }
-
-        .section-title span {
-            display: block;
-            color: var(--rojo);
-            font-size: 11px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .section-title h2 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(42px, 10vw, 70px);
-            font-weight: 500;
-            line-height: 0.9;
-        }
-
-        .section-title p {
-            max-width: 550px;
-            margin: 20px auto 0;
-            opacity: 0.75;
-            line-height: 1.7;
-        }
-
-        /* =========================
-           FRASE
-        ========================= */
-
-        .quote-section {
-            background: var(--rojo);
-            color: white;
-            max-width: none;
-            text-align: center;
-        }
-
-        .quote {
-            max-width: 700px;
-            margin: auto;
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(30px, 7vw, 52px);
-            font-style: italic;
-            line-height: 1.15;
-        }
-
-        /* =========================
-           DATOS DEL EVENTO
-        ========================= */
-
-        .event-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .event-card {
-            background: rgba(255,255,255,0.5);
-            border: 1px solid var(--crema-oscura);
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px var(--sombra);
-        }
-
-        .event-card .icon {
-            font-size: 25px;
-            margin-bottom: 15px;
-        }
-
-        .event-card h3 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 27px;
-            font-weight: 600;
-        }
-
-        .event-card p {
-            margin-top: 8px;
-            opacity: 0.75;
-            font-size: 14px;
-        }
-
-        /* =========================
-           COUNTDOWN
-        ========================= */
-
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            max-width: 650px;
-            margin: auto;
-        }
-
-        .time-box {
-            text-align: center;
-            padding: 22px 8px;
-            background: var(--blanco);
-            border: 1px solid var(--crema-oscura);
-        }
-
-        .time-box strong {
-            display: block;
-            font-family: "Cormorant Garamond", serif;
-            color: var(--rojo);
-            font-size: 42px;
-        }
-
-        .time-box span {
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* =========================
-           BOTONES GENERALES
-        ========================= */
-
-        .main-button {
-            display: inline-block;
-            background: var(--rojo);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 40px;
-            border: none;
-            cursor: pointer;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-
-        .main-button:hover {
-            background: var(--rojo-oscuro);
-            transform: translateY(-2px);
-        }
-
-        .center {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        /* =========================
-           DRESS CODE
-        ========================= */
-
-        .dress-card {
-            max-width: 650px;
-            margin: auto;
-            padding: 45px 25px;
-            background: var(--blanco);
-            border: 1px solid var(--crema-oscura);
-            text-align: center;
-        }
-
-        .dress-card h3 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 42px;
-            color: var(--rojo);
-            margin-bottom: 15px;
-        }
-
-        /* =========================
-           REGALOS
-        ========================= */
-
-        .gift {
-            max-width: 700px;
-            margin: auto;
-            text-align: center;
-            padding: 50px 25px;
-            background: linear-gradient(135deg, var(--rosa-claro), var(--crema-oscura));
-        }
-
-        .gift-icon {
-            font-size: 45px;
-            margin-bottom: 20px;
-        }
-
-        .gift h3 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        /* =========================
-           GALERÍA
-        ========================= */
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .photo {
-            aspect-ratio: 1 / 1.15;
-            background:
-                linear-gradient(135deg, var(--rosa-claro), var(--crema-oscura));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--rojo);
-            font-family: "Cormorant Garamond", serif;
-            font-size: 20px;
-            text-align: center;
-            padding: 10px;
-        }
-
-        /* =========================
-           FORMULARIO
-        ========================= */
-
-        .form-box {
-            max-width: 650px;
-            margin: auto;
-            padding: 40px 25px;
-            background: var(--blanco);
-            border: 1px solid var(--crema-oscura);
-            text-align: center;
-        }
-
-        .form-box h3 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
-
-        /* =========================
-           MÚSICA
-        ========================= */
-
-        .music-player {
-            max-width: 550px;
-            margin: auto;
-            background: var(--rojo);
-            color: white;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .music-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            background: var(--crema);
-            color: var(--rojo);
-            font-size: 18px;
-        }
-
-        .music-info strong {
-            display: block;
-            font-family: "Cormorant Garamond", serif;
-            font-size: 22px;
-        }
-
-        .music-info span {
-            font-size: 12px;
-            opacity: 0.75;
-        }
-
-        /* =========================
-           MAPA
-        ========================= */
-
-        .map-placeholder {
-            min-height: 300px;
-            background:
-                linear-gradient(rgba(141,31,45,0.15), rgba(141,31,45,0.15)),
-                var(--crema-oscura);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            background: var(--rojo-oscuro);
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        footer h2 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 55px;
-            font-weight: 400;
-        }
-
-        footer p {
-            margin-top: 10px;
-            opacity: 0.75;
-        }
-
-        /* =========================
-           ANIMACIONES
-        ========================= */
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 700px) {
-
-            section {
-                padding: 70px 18px;
-            }
-
-            .event-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .countdown {
-                gap: 7px;
-            }
-
-            .time-box strong {
-                font-size: 30px;
-            }
-
-            .time-box span {
-                font-size: 8px;
-            }
-
-            .hero::before {
-                inset: 15px;
-            }
-
-            .music-player {
-                padding: 18px;
-            }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#A50000">
+<title>Lucía — Mis XV</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --red:#A50000;
+  --red-dark:#760000;
+  --red-soft:#C44A4A;
+  --cream:#FFEEE1;
+  --cream-2:#F7E1CE;
+  --paper:#FFF7EF;
+  --ink:#351D1B;
+  --muted:#765A54;
+  --gold:#A47B4D;
+  --line:rgba(165,0,0,.24);
+  --shadow:rgba(55,18,12,.18);
+  --rose-opacity:1;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --cream:#171010;
+    --cream-2:#271717;
+    --paper:#211515;
+    --ink:#F1DFD0;
+    --muted:#C5A79C;
+    --gold:#C39B69;
+    --line:rgba(227,181,151,.24);
+    --shadow:rgba(0,0,0,.45);
+  }
+}
+body.dark{
+  --cream:#171010;
+  --cream-2:#271717;
+  --paper:#211515;
+  --ink:#F1DFD0;
+  --muted:#C5A79C;
+  --gold:#C39B69;
+  --line:rgba(227,181,151,.24);
+  --shadow:rgba(0,0,0,.45);
+}
+body.light{
+  --cream:#FFEEE1;
+  --cream-2:#F7E1CE;
+  --paper:#FFF7EF;
+  --ink:#351D1B;
+  --muted:#765A54;
+  --gold:#A47B4D;
+  --line:rgba(165,0,0,.24);
+  --shadow:rgba(55,18,12,.18);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+  transition:background .4s ease,color .4s ease;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:999;
+  opacity:.12;
+  background:repeating-linear-gradient(0deg,rgba(75,35,20,.06) 0 1px,transparent 1px 4px);
+}
+button,a{font:inherit}
+button{cursor:pointer}
+
+/* ---------- global botanical decoration ---------- */
+.botanical{
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+}
+.botanical img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* ---------- theme button ---------- */
+.theme-toggle{
+  position:fixed;
+  z-index:1200;
+  right:16px;
+  top:16px;
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:color-mix(in srgb,var(--paper) 82%,transparent);
+  color:var(--red);
+  backdrop-filter:blur(8px);
+  box-shadow:0 5px 18px var(--shadow);
+}
+.theme-toggle span{
+  display:block;
+  width:16px;
+  height:16px;
+  border:1.5px solid currentColor;
+  border-radius:50%;
+  margin:auto;
+  position:relative;
+}
+.theme-toggle span:after{
+  content:"";
+  position:absolute;
+  width:7px;height:7px;
+  background:currentColor;
+  border-radius:50%;
+  left:-4px;top:-4px;
+}
+
+/* ---------- intro ---------- */
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:var(--red);
+  color:#fff9f1;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity 1s ease,visibility 1s ease;
+}
+#intro.closed{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+.intro-roses{
+  position:absolute;
+  pointer-events:none;
+}
+.intro-roses.top{
+  width:min(620px,90vw);
+  top:-12px;
+  right:-30px;
+}
+.intro-roses.bottom{
+  width:min(600px,88vw);
+  bottom:-25px;
+  left:-35px;
+}
+.intro-roses img{
+  width:100%;
+  display:block;
+}
+.intro-content{
+  width:min(650px,92vw);
+  text-align:center;
+  position:relative;
+  z-index:2;
+  padding:35px 18px;
+}
+.intro-name{
+  font-family:"Cormorant Garamond",serif;
+  font-weight:500;
+  font-size:clamp(4.3rem,16vw,7.5rem);
+  letter-spacing:.015em;
+  line-height:.8;
+  margin-bottom:12px;
+}
+.intro-xv{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(1.45rem,5vw,2rem);
+  margin-bottom:10px;
+}
+.intro-date{
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.15rem;
+  letter-spacing:.22em;
+}
+
+/* envelope */
+.envelope-wrap{
+  width:min(510px,84vw);
+  aspect-ratio:1.3;
+  margin:42px auto 22px;
+  perspective:1100px;
+  position:relative;
+  cursor:pointer;
+}
+.envelope-shadow{
+  position:absolute;
+  left:7%;right:7%;bottom:-16px;
+  height:28px;
+  background:rgba(0,0,0,.18);
+  filter:blur(12px);
+  border-radius:50%;
+}
+.envelope{
+  position:absolute;
+  inset:0;
+  background:#F5EBDD;
+  border-radius:3px;
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
+  overflow:visible;
+}
+.envelope-paper-texture{
+  position:absolute;
+  inset:0;
+  border-radius:3px;
+  background:repeating-linear-gradient(0deg,rgba(120,80,40,.025) 0 1px,transparent 1px 4px);
+}
+.envelope-flap{
+  position:absolute;
+  z-index:4;
+  top:0;left:0;
+  width:100%;height:67%;
+  background:#EFE2D0;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transition:transform 1.05s cubic-bezier(.65,0,.35,1);
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.08));
+}
+.envelope-flap:before{
+  content:"";
+  position:absolute;
+  inset:11px;
+  border-top:1px solid rgba(110,75,50,.15);
+  border-left:1px solid rgba(110,75,50,.12);
+  clip-path:polygon(0 0,100% 0,50% 88%);
+}
+.envelope-front{
+  position:absolute;
+  z-index:3;
+  inset:0;
+  background:linear-gradient(135deg,#F7EBDD,#E9D9C4);
+  clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);
+}
+.envelope-front:after{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(130,90,55,.18);
+}
+.envelope-seal{
+  position:absolute;
+  z-index:6;
+  left:50%;top:58%;
+  transform:translate(-50%,-50%);
+  width:72px;height:72px;
+  border-radius:50%;
+  background:#A50000;
+  box-shadow:0 7px 15px rgba(0,0,0,.24);
+  display:grid;
+  place-items:center;
+  transition:transform .5s ease,opacity .5s ease;
+}
+.envelope-seal:before{
+  content:"";
+  width:45px;height:45px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:50%;
+}
+.envelope-seal:after{
+  content:"L";
+  position:absolute;
+  font-family:"Great Vibes",cursive;
+  color:#FCEFE2;
+  font-size:28px;
+}
+.envelope-wrap.open .envelope-flap{
+  transform:rotateX(180deg);
+}
+.envelope-wrap.open .envelope-seal{
+  transform:translate(-50%,-50%) scale(.85);
+  opacity:0;
+}
+.open-instruction{
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.35rem;
+  line-height:1.15;
+  max-width:350px;
+  margin:auto;
+}
+.open-line{
+  width:75px;height:1px;
+  background:rgba(255,255,255,.7);
+  margin:12px auto 0;
+}
+
+/* ---------- main ---------- */
+#invitation{display:none;min-height:100vh}
+#invitation.visible{display:block;animation:appear 1s ease both}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+.section{
+  position:relative;
+  width:min(100% - 34px,860px);
+  margin:auto;
+  padding:82px 0;
+}
+.section+.section{border-top:1px solid var(--line)}
+.section-title{
+  font-family:"Cormorant Garamond",serif;
+  color:var(--red);
+  font-size:clamp(2.4rem,8vw,3.6rem);
+  font-weight:500;
+  text-align:center;
+  line-height:1;
+  margin-bottom:10px;
+}
+.section-subtitle{
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.2rem;
+  color:var(--muted);
+  text-align:center;
+  font-style:italic;
+  margin-bottom:35px;
+}
+.section-ornament{
+  width:120px;
+  height:1px;
+  background:var(--gold);
+  margin:18px auto 35px;
+  position:relative;
+}
+.section-ornament:before,.section-ornament:after{
+  content:"";
+  position:absolute;
+  top:-3px;
+  width:7px;height:7px;
+  border:1px solid var(--gold);
+  transform:rotate(45deg);
+  background:var(--cream);
+}
+.section-ornament:before{left:14px}
+.section-ornament:after{right:14px}
+
+/* ---------- music ---------- */
+.music-section{
+  background:var(--cream);
+  overflow:hidden;
+}
+.music-top-rose{
+  position:absolute;
+  width:210px;
+  right:-55px;
+  top:15px;
+  opacity:.88;
+}
+.music-bottom-rose{
+  position:absolute;
+  width:210px;
+  left:-70px;
+  bottom:15px;
+  opacity:.88;
+  transform:scaleX(-1);
+}
+.vinyl-player{
+  width:min(520px,94vw);
+  margin:15px auto 0;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.vinyl-stage{
+  width:min(460px,84vw);
+  aspect-ratio:1;
+  margin:auto;
+  position:relative;
+}
+.vinyl-image{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  overflow:hidden;
+  background:#090909;
+  box-shadow:0 22px 40px var(--shadow);
+  animation:none;
+}
+.vinyl-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.vinyl-image.playing{animation:spin 3.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* fixed light across the rotating disc */
+.vinyl-light{
+  position:absolute;
+  z-index:3;
+  inset:4%;
+  border-radius:50%;
+  pointer-events:none;
+  background:linear-gradient(145deg,rgba(255,255,255,.13),transparent 34%,transparent 66%,rgba(255,255,255,.05));
+  mix-blend-mode:screen;
+}
+.player-controls{
+  margin:24px auto 0;
+  width:min(430px,90vw);
+}
+.progress{
+  position:relative;
+  width:100%;
+  height:5px;
+  background:rgba(165,0,0,.28);
+  border-radius:99px;
+  cursor:pointer;
+}
+.progress-fill{
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:0%;
+  background:var(--red);
+  border-radius:99px;
+}
+.progress-dot{
+  position:absolute;
+  top:50%;
+  left:0%;
+  width:15px;height:15px;
+  transform:translate(-50%,-50%);
+  background:var(--red);
+  border-radius:50%;
+  box-shadow:0 2px 6px var(--shadow);
+}
+.controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:27px;
+  margin-top:18px;
+}
+.control-btn{
+  border:0;
+  background:none;
+  color:var(--red);
+  width:34px;height:34px;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.control-btn.play{
+  width:60px;height:60px;
+  border-radius:50%;
+  background:var(--red);
+}
+.triangle{
+  width:0;height:0;
+  border-top:11px solid transparent;
+  border-bottom:11px solid transparent;
+  border-left:16px solid #fff4e9;
+  margin-left:4px;
+}
+.pause-bars{
+  display:flex;gap:5px;
+}
+.pause-bars i{display:block;width:5px;height:22px;background:#fff4e9}
+.skip-prev:before,.skip-next:before{
+  content:"";
+  width:0;height:0;
+  border-top:8px solid transparent;
+  border-bottom:8px solid transparent;
+  border-right:12px solid currentColor;
+}
+.skip-next:before{
+  transform:rotate(180deg);
+}
+.music-status{
+  margin-top:15px;
+  color:var(--muted);
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.1rem;
+}
+
+/* ---------- text invitation ---------- */
+.invite-text{
+  max-width:690px;
+  margin:auto;
+  text-align:center;
+}
+.invite-text p{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(1.3rem,4vw,1.55rem);
+  line-height:1.65;
+  margin-bottom:22px;
+}
+.invite-signature{
+  font-family:"Great Vibes",cursive;
+  font-size:3rem;
+  color:var(--red);
+  margin-top:25px;
+}
+
+/* ---------- photos ---------- */
+.photo-carousel{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  padding:10px 5px 24px;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:thin;
+}
+.photo-card{
+  flex:0 0 270px;
+  height:340px;
+  scroll-snap-align:center;
+  padding:12px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 14px 28px var(--shadow);
+  transform:rotate(-1deg);
+}
+.photo-card:nth-child(even){transform:rotate(1.1deg)}
+.photo-placeholder{
+  width:100%;height:100%;
+  display:grid;place-items:center;
+  text-align:center;
+  color:var(--muted);
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.25rem;
+  background:linear-gradient(135deg,var(--cream-2),var(--paper));
+}
+
+/* ---------- event ---------- */
+.event-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+.event-card{
+  min-height:145px;
+  border:1px solid var(--line);
+  background:color-mix(in srgb,var(--paper) 48%,transparent);
+  padding:25px 14px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(55,18,12,.05);
+}
+.event-label{
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:.66rem;
+  color:var(--muted);
+  margin-bottom:11px;
+}
+.event-value{
+  font-family:"Cormorant Garamond",serif;
+  color:var(--red);
+  font-size:1.45rem;
+  line-height:1.25;
+}
+.map-area{text-align:center;margin-top:28px}
+.map-button,.action-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 29px;
+  background:var(--red);
+  color:#fff7ef;
+  text-decoration:none;
+  border:1px solid var(--red);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:.7rem;
+  transition:.3s;
+}
+.map-button:hover,.action-button:hover{
+  background:var(--red-dark);
+  transform:translateY(-2px);
+}
+.map-help{
+  color:var(--muted);
+  font-family:"Cormorant Garamond",serif;
+  font-style:italic;
+  margin-top:12px;
+}
+
+/* ---------- dress ---------- */
+.dress-card{
+  max-width:590px;
+  margin:auto;
+  text-align:center;
+  border:1px solid var(--line);
+  padding:38px 25px;
+  background:color-mix(in srgb,var(--paper) 45%,transparent);
+}
+.dress-main{
+  font-family:"Cormorant Garamond",serif;
+  color:var(--red);
+  font-size:2.5rem;
+  margin-bottom:12px;
+}
+.dress-red{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-top:24px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.15rem;
+}
+.red-swatch{
+  width:27px;height:27px;
+  border-radius:50%;
+  background:#A50000;
+  border:1px solid rgba(0,0,0,.18);
+  flex:none;
+}
+
+/* ---------- song request ---------- */
+.simple-card{
+  max-width:620px;
+  margin:auto;
+  border:1px solid var(--line);
+  padding:38px 25px;
+  text-align:center;
+}
+.simple-card p{
+  color:var(--muted);
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.2rem;
+  margin-bottom:24px;
+}
+
+/* ---------- gifts ---------- */
+.gift-intro{
+  text-align:center;
+  max-width:650px;
+  margin:0 auto 30px;
+}
+.gift-intro h3{
+  font-family:"Cormorant Garamond",serif;
+  color:var(--red);
+  font-size:2rem;
+  font-weight:500;
+  margin-bottom:8px;
+}
+.gift-intro p{
+  color:var(--muted);
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.15rem;
+}
+.gift-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+  max-width:700px;
+  margin:auto;
+}
+.gift-button{
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink);
+  padding:18px 12px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.25rem;
+  transition:.3s;
+}
+.gift-button:hover,.gift-button.active{
+  background:var(--red);
+  color:#fff7ef;
+  border-color:var(--red);
+}
+.gift-result{
+  display:none;
+  max-width:700px;
+  margin:22px auto 0;
+  border:1px solid var(--line);
+  padding:24px;
+  background:color-mix(in srgb,var(--paper) 55%,transparent);
+  text-align:center;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.2rem;
+  line-height:1.55;
+}
+.gift-result.show{display:block}
+
+/* ---------- countdown ---------- */
+.countdown{
+  max-width:680px;
+  margin:35px auto 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.time-box{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  text-align:center;
+  padding:18px 5px;
+}
+.time-number{
+  font-family:"Cormorant Garamond",serif;
+  color:var(--red);
+  font-size:clamp(2.1rem,8vw,3.2rem);
+}
+.time-label{
+  font-size:.62rem;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  color:var(--muted);
+}
+
+/* ---------- RSVP ---------- */
+.rsvp-box{
+  max-width:680px;
+  margin:auto;
+  border:1px solid var(--line);
+  padding:48px 25px;
+  text-align:center;
+  position:relative;
+}
+.rsvp-box:before,.rsvp-box:after{
+  content:"";
+  position:absolute;
+  width:50px;height:50px;
+  border-color:var(--gold);
+  border-style:solid;
+}
+.rsvp-box:before{left:10px;top:10px;border-width:1px 0 0 1px}
+.rsvp-box:after{right:10px;bottom:10px;border-width:0 1px 1px 0}
+.rsvp-box p{
+  max-width:560px;
+  margin:0 auto 18px;
+  color:var(--muted);
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.2rem;
+  line-height:1.6;
+}
+
+/* ---------- footer ---------- */
+footer{
+  border-top:1px solid var(--line);
+  padding:70px 20px;
+  text-align:center;
+}
+.footer-name{
+  font-family:"Great Vibes",cursive;
+  color:var(--red);
+  font-size:3.4rem;
+}
+.footer-date{
+  margin-top:8px;
+  color:var(--muted);
+  letter-spacing:.16em;
+  font-family:"Cormorant Garamond",serif;
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:680px){
+  .section{padding:68px 0}
+  .event-grid{grid-template-columns:1fr}
+  .countdown{gap:5px}
+  .gift-grid{grid-template-columns:1fr}
+  .intro-roses.top{width:530px;right:-180px}
+  .intro-roses.bottom{width:500px;left:-155px}
+  .envelope-wrap{margin-top:35px}
+  .vinyl-stage{width:min(420px,88vw)}
+}
+</style>
 </head>
 
 <body>
 
-    <!-- BOTONES -->
-    <div class="floating-buttons">
-        <button class="circle-button" onclick="toggleDark()" aria-label="Cambiar modo">
-            ◐
-        </button>
+<button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro u oscuro">
+  <span></span>
+</button>
 
-        <button class="circle-button" onclick="toggleMusic()" aria-label="Música">
-            ♫
-        </button>
+<!-- ===================== PORTADA ===================== -->
+<section id="intro">
+
+  <div class="intro-roses top">
+    <img src="assets/roses-top.png" alt="">
+  </div>
+
+  <div class="intro-roses bottom">
+    <img src="assets/roses-bottom.png" alt="">
+  </div>
+
+  <div class="intro-content">
+
+    <div class="intro-name">LUCÍA</div>
+    <div class="intro-xv">Mis XV</div>
+    <div class="intro-date">24 - 10 - 26</div>
+
+    <div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Abrir invitación">
+      <div class="envelope-shadow"></div>
+
+      <div class="envelope">
+
+        <div class="envelope-paper-texture"></div>
+
+        <div class="envelope-flap"></div>
+
+        <div class="envelope-front"></div>
+
+        <div class="envelope-seal"></div>
+
+      </div>
     </div>
 
+    <div class="open-instruction">
+      Tocá el sobre para abrir tu invitación
+    </div>
+    <div class="open-line"></div>
 
-    <!-- =========================
-         PORTADA
-    ========================= -->
+  </div>
+</section>
 
-    <header class="hero">
 
-        <div class="rose-decoration rose-one">🌹</div>
-        <div class="rose-decoration rose-two">🌹</div>
+<!-- ===================== INVITACIÓN ===================== -->
+<main id="invitation">
 
-        <div class="hero-content">
+  <!-- MÚSICA -->
+  <section class="section music-section">
 
-            <div class="small-title">
-                Una noche para recordar
-            </div>
+    <div class="music-top-rose">
+      <img src="assets/roses-top.png" alt="">
+    </div>
 
-            <h1>LUCÍA</h1>
+    <div class="music-bottom-rose">
+      <img src="assets/roses-bottom.png" alt="">
+    </div>
 
-            <h2>Mis XV</h2>
+    <h1 class="section-title">Música para acompañar la noche</h1>
+    <p class="section-subtitle">Poné play y recorré la invitación con música</p>
+    <div class="section-ornament"></div>
 
-            <div class="hero-rose">❦</div>
+    <div class="vinyl-player">
 
-            <div class="date">
-                24 · 10 · 2026
-            </div>
+      <div class="vinyl-stage">
 
-            <a href="#inicio" class="open-button">
-                ABRIR INVITACIÓN
-            </a>
+        <div class="vinyl-image" id="vinyl">
+          <img src="assets/vinyl-ref.png" alt="Vinilo">
+        </div>
+
+        <!-- Esta luz está FUERA del elemento que gira -->
+        <div class="vinyl-light"></div>
+
+      </div>
+
+      <div class="player-controls">
+
+        <div class="progress" id="progressBar" aria-label="Progreso de la canción">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-dot" id="progressDot"></div>
+        </div>
+
+        <div class="controls">
+
+          <button class="control-btn skip-prev" id="prevButton" aria-label="Retroceder"></button>
+
+          <button class="control-btn play" id="playButton" aria-label="Reproducir">
+            <span class="triangle" id="playIcon"></span>
+          </button>
+
+          <button class="control-btn skip-next" id="nextButton" aria-label="Avanzar"></button>
 
         </div>
 
-    </header>
+      </div>
 
+      <div class="music-status" id="musicStatus">
+        Lover Girl — Laufey
+      </div>
 
-    <main id="inicio">
+    </div>
 
-        <!-- =========================
-             FRASE
-        ========================= -->
+    <!--
+      IMPORTANTE:
+      Cuando tengas el archivo de audio, guardalo como:
+      assets/lover-girl.mp3
 
-        <section class="quote-section">
+      El código ya está preparado para reproducirlo.
+    -->
 
-            <div class="quote">
-                “Hay momentos que merecen
-                quedarse para siempre.”
-            </div>
+  </section>
 
-        </section>
 
+  <!-- TEXTO DE INVITACIÓN -->
+  <section class="section">
 
-        <!-- =========================
-             EVENTO
-        ========================= -->
+    <div class="invite-text">
 
-        <section>
+      <h2 class="section-title">Una noche para recordar</h2>
+      <div class="section-ornament"></div>
 
-            <div class="section-title">
+      <p>Con mucho gusto quiero invitarte a celebrar conmigo mis XV años.</p>
 
-                <span>Guardá la fecha</span>
+      <p>Quiero compartir este momento con las personas que forman parte de mi vida y pasar juntos una linda noche, acompañados de música, comida y buenos momentos.</p>
 
-                <h2>El evento</h2>
+      <p>Me gustaría mucho poder contar con tu presencia y que seas parte de esta celebración.</p>
 
-                <p>
-                    Quiero compartir esta noche tan especial
-                    con las personas que forman parte de mi vida.
-                </p>
+      <p>Espero que puedas acompañarme.</p>
 
-            </div>
+      <div class="invite-signature">Lucía</div>
 
-            <div class="event-grid">
+    </div>
 
-                <div class="event-card">
+  </section>
 
-                    <div class="icon">♡</div>
 
-                    <h3>Fecha</h3>
+  <!-- FOTOS -->
+  <section class="section">
 
-                    <p>
-                        Sábado<br>
-                        24 de octubre de 2026
-                    </p>
+    <h2 class="section-title">Mis recuerdos</h2>
+    <p class="section-subtitle">Un pequeño recorrido por algunos momentos de mi vida</p>
+    <div class="section-ornament"></div>
 
-                </div>
+    <div class="photo-carousel">
 
-                <div class="event-card">
+      <div class="photo-card"><div class="photo-placeholder">Tu foto 1</div></div>
+      <div class="photo-card"><div class="photo-placeholder">Tu foto 2</div></div>
+      <div class="photo-card"><div class="photo-placeholder">Tu foto 3</div></div>
+      <div class="photo-card"><div class="photo-placeholder">Tu foto 4</div></div>
+      <div class="photo-card"><div class="photo-placeholder">Tu foto 5</div></div>
 
-                    <div class="icon">⌖</div>
+    </div>
 
-                    <h3>Lugar</h3>
+  </section>
 
-                    <p>
-                        Próximamente<br>
-                        Dirección del evento
-                    </p>
 
-                </div>
+  <!-- EVENTO -->
+  <section class="section">
 
-                <div class="event-card">
+    <h2 class="section-title">El evento</h2>
+    <div class="section-ornament"></div>
 
-                    <div class="icon">◷</div>
+    <div class="event-grid">
 
-                    <h3>Horario</h3>
+      <div class="event-card">
+        <div class="event-label">Fecha</div>
+        <div class="event-value">24 - 10 - 26</div>
+      </div>
 
-                    <p>
-                        Próximamente<br>
-                        Hora de comienzo
-                    </p>
+      <div class="event-card">
+        <div class="event-label">Horario</div>
+        <div class="event-value">21:00 a 05:00 hs</div>
+      </div>
 
-                </div>
+      <div class="event-card">
+        <div class="event-label">Lugar</div>
+        <div class="event-value">Salón La Jarrilla - Estrella</div>
+      </div>
 
-            </div>
+    </div>
 
-        </section>
+    <div class="map-area">
 
+      <a
+        class="map-button"
+        href="https://maps.app.goo.gl/BCetAEy5Hn3bXAWS8?g_st=ac"
+        target="_blank"
+        rel="noopener"
+      >
+        Ver ubicación
+      </a>
 
-        <!-- =========================
-             COUNTDOWN
-        ========================= -->
+      <p class="map-help">
+        Tocá el botón para abrir la dirección en Google Maps.
+      </p>
 
-        <section>
+    </div>
 
-            <div class="section-title">
+  </section>
 
-                <span>Falta poquito</span>
 
-                <h2>Cuenta regresiva</h2>
+  <!-- DRESS CODE -->
+  <section class="section">
 
-            </div>
+    <h2 class="section-title">Código de vestimenta</h2>
+    <p class="section-subtitle">Para acompañar la elegancia de la noche</p>
+    <div class="section-ornament"></div>
 
-            <div class="countdown">
+    <div class="dress-card">
 
-                <div class="time-box">
-                    <strong id="days">00</strong>
-                    <span>Días</span>
-                </div>
+      <div class="dress-main">Formal</div>
 
-                <div class="time-box">
-                    <strong id="hours">00</strong>
-                    <span>Horas</span>
-                </div>
+      <p>Elegante, cómodo y acorde a una noche especial.</p>
 
-                <div class="time-box">
-                    <strong id="minutes">00</strong>
-                    <span>Minutos</span>
-                </div>
+      <div class="dress-red">
+        <div class="red-swatch"></div>
+        <span>El color rojo queda reservado para la quinceañera.</span>
+      </div>
 
-                <div class="time-box">
-                    <strong id="seconds">00</strong>
-                    <span>Segundos</span>
-                </div>
+    </div>
 
-            </div>
+  </section>
 
-        </section>
 
+  <!-- CANCIÓN -->
+  <section class="section">
 
-        <!-- =========================
-             MÚSICA
-        ========================= -->
+    <h2 class="section-title">Elegí una canción</h2>
+    <p class="section-subtitle">¿Qué canción no puede faltar en la fiesta?</p>
+    <div class="section-ornament"></div>
 
-        <section>
+    <div class="simple-card">
 
-            <div class="section-title">
+      <p>
+        Podés dejarme una canción para que forme parte
+        de la música de la noche.
+      </p>
 
-                <span>Dale play</span>
+      <!-- Reemplazaremos este enlace por el Google Form -->
+      <a href="#" class="action-button" id="songRequestButton">
+        Sugerir una canción
+      </a>
 
-                <h2>Una canción</h2>
+    </div>
 
-            </div>
+  </section>
 
-            <div class="music-player">
 
-                <button class="music-button" onclick="toggleMusic()">
-                    ▶
-                </button>
+  <!-- REGALOS -->
+  <section class="section">
 
-                <div class="music-info">
+    <div class="gift-intro">
 
-                    <strong>Mi canción</strong>
+      <h3>¿Querés regalarle algo a Lucía pero no sabés qué?</h3>
 
-                    <span>
-                        Tocá play para escuchar
-                    </span>
+      <p>
+        Un pequeño juego para encontrar una idea.
+        <br>
+        Presioná una categoría y mirá algunas opciones.
+      </p>
 
-                </div>
+    </div>
 
-            </div>
+    <div class="gift-grid">
 
-            <!--
-            IMPORTANTE:
-            Más adelante agregaremos aquí
-            el archivo de música.
-            -->
+      <button class="gift-button" data-gift="Ropa">
+        Ropa
+      </button>
 
-        </section>
+      <button class="gift-button" data-gift="Papelería">
+        Papelería
+      </button>
 
+      <button class="gift-button" data-gift="Accesorios">
+        Accesorios
+      </button>
 
-        <!-- =========================
-             UBICACIÓN
-        ========================= -->
+      <button class="gift-button" data-gift="Tecnología">
+        Tecnología
+      </button>
 
-        <section>
+      <button class="gift-button" data-gift="Maquillaje y cuidado personal">
+        Maquillaje y cuidado personal
+      </button>
 
-            <div class="section-title">
+      <button class="gift-button" data-gift="Otro">
+        Otro
+      </button>
 
-                <span>¿Dónde?</span>
+    </div>
 
-                <h2>Ubicación</h2>
+    <div class="gift-result" id="giftResult"></div>
 
-                <p>
-                    Acá aparecerá el mapa del lugar
-                    y un botón para abrirlo en Google Maps.
-                </p>
+  </section>
 
-            </div>
 
-            <div class="map-placeholder">
+  <!-- CUENTA REGRESIVA -->
+  <section class="section">
 
-                <div>
+    <h2 class="section-title">Falta cada vez menos</h2>
+    <p class="section-subtitle">Nos vemos el 24 de octubre</p>
+    <div class="section-ornament"></div>
 
-                    <h3 style="font-family: Cormorant Garamond; font-size: 40px;">
-                        📍 Lugar del evento
-                    </h3>
+    <div class="countdown">
 
-                    <p style="margin: 15px 0;">
-                        Dirección próximamente
-                    </p>
+      <div class="time-box">
+        <div class="time-number" id="days">00</div>
+        <div class="time-label">Días</div>
+      </div>
 
-                    <a
-                        href="#"
-                        class="main-button"
-                    >
-                        ABRIR MAPA
-                    </a>
+      <div class="time-box">
+        <div class="time-number" id="hours">00</div>
+        <div class="time-label">Horas</div>
+      </div>
 
-                </div>
+      <div class="time-box">
+        <div class="time-number" id="minutes">00</div>
+        <div class="time-label">Minutos</div>
+      </div>
 
-            </div>
+      <div class="time-box">
+        <div class="time-number" id="seconds">00</div>
+        <div class="time-label">Segundos</div>
+      </div>
 
-        </section>
+    </div>
 
+  </section>
 
-        <!-- =========================
-             DRESS CODE
-        ========================= -->
 
-        <section>
+  <!-- RSVP -->
+  <section class="section">
 
-            <div class="section-title">
+    <h2 class="section-title">Confirmación de asistencia</h2>
+    <p class="section-subtitle">Tu respuesta me ayuda a preparar todo</p>
+    <div class="section-ornament"></div>
 
-                <span>Para la ocasión</span>
+    <div class="rsvp-box">
 
-                <h2>Dress code</h2>
+      <p>
+        Para organizar la celebración, necesito que confirmes
+        si vas a poder acompañarme.
+      </p>
 
-            </div>
+      <p>
+        La confirmación incluye nombre y apellido, asistencia
+        y, en caso de asistir, cualquier restricción alimentaria.
+      </p>
 
-            <div class="dress-card">
+      <!-- Reemplazaremos este enlace por el Google Form -->
+      <a href="#" class="action-button" id="rsvpButton">
+        Confirmar asistencia
+      </a>
 
-                <div style="font-size:45px;">
-                    ♡
-                </div>
+    </div>
 
-                <h3>Elegante</h3>
+  </section>
 
-                <p>
-                    Vestite como te haga sentir cómodo/a
-                    y disfrutá de la noche.
-                </p>
 
-            </div>
+  <footer>
+    <div class="footer-name">Lucía</div>
+    <div class="footer-date">24 · 10 · 2026</div>
+  </footer>
 
-        </section>
+</main>
 
 
-        <!-- =========================
-             REGALOS
-        ========================= -->
+<script>
+/* =========================================================
+   CONFIGURACIÓN
+   Cuando terminemos las integraciones solo tendremos que
+   cambiar estos valores.
+========================================================= */
 
-        <section>
+const CONFIG = {
+  audio: "assets/lover-girl.mp3",
 
-            <div class="section-title">
+  songForm: "",
 
-                <span>Si querés</span>
+  rsvpForm: "",
 
-                <h2>Regalos</h2>
+  eventDate: "2026-10-24T21:00:00-03:00"
+};
 
-            </div>
 
-            <div class="gift">
+/* =========================================================
+   SOBRE
+========================================================= */
 
-                <div class="gift-icon">
-                    🎁
-                </div>
+const intro = document.getElementById("intro");
+const invitation = document.getElementById("invitation");
+const envelopeWrap = document.getElementById("envelopeWrap");
 
-                <h3>Un detalle especial</h3>
+function openInvitation(){
+  if(envelopeWrap.classList.contains("open")) return;
 
-                <p>
-                    Lo más importante es que estés conmigo
-                    para compartir este día.
-                </p>
+  envelopeWrap.classList.add("open");
 
-                <div style="margin-top:20px;">
-                    Próximamente agregaremos
-                    la información para regalos.
-                </div>
+  setTimeout(() => {
+    intro.classList.add("closed");
+    invitation.classList.add("visible");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }, 1050);
+}
 
-            </div>
+envelopeWrap.addEventListener("click",openInvitation);
 
-        </section>
+envelopeWrap.addEventListener("keydown",(e)=>{
+  if(e.key === "Enter" || e.key === " "){
+    e.preventDefault();
+    openInvitation();
+  }
+});
 
 
-        <!-- =========================
-             GALERÍA
-        ========================= -->
+/* =========================================================
+   MODO CLARO / OSCURO
+========================================================= */
 
-        <section>
+const themeToggle = document.getElementById("themeToggle");
 
-            <div class="section-title">
+const savedTheme = localStorage.getItem("lucia-theme");
 
-                <span>Algunos recuerdos</span>
+if(savedTheme === "dark"){
+  document.body.classList.add("dark");
+}
 
-                <h2>Galería</h2>
+if(savedTheme === "light"){
+  document.body.classList.add("light");
+}
 
-                <p>
-                    Acá vamos a colocar tus fotos.
-                </p>
+themeToggle.addEventListener("click",()=>{
 
-            </div>
+  const dark = document.body.classList.toggle("dark");
 
-            <div class="gallery">
+  document.body.classList.toggle("light",!dark);
 
-                <div class="photo">
-                    Foto 01
-                </div>
+  localStorage.setItem(
+    "lucia-theme",
+    dark ? "dark" : "light"
+  );
 
-                <div class="photo">
-                    Foto 02
-                </div>
+});
 
-                <div class="photo">
-                    Foto 03
-                </div>
 
-                <div class="photo">
-                    Foto 04
-                </div>
+/* =========================================================
+   MÚSICA
+========================================================= */
 
-                <div class="photo">
-                    Foto 05
-                </div>
+const audio = new Audio(CONFIG.audio);
+audio.preload = "metadata";
 
-                <div class="photo">
-                    Foto 06
-                </div>
+const vinyl = document.getElementById("vinyl");
+const playButton = document.getElementById("playButton");
+const playIcon = document.getElementById("playIcon");
+const progressBar = document.getElementById("progressBar");
+const progressFill = document.getElementById("progressFill");
+const progressDot = document.getElementById("progressDot");
+const musicStatus = document.getElementById("musicStatus");
 
-            </div>
+function setPlayingState(isPlaying){
 
-        </section>
+  vinyl.classList.toggle("playing",isPlaying);
 
+  if(isPlaying){
+    playIcon.className = "pause-bars";
+    playIcon.innerHTML = "<i></i><i></i>";
+    musicStatus.textContent = "Lover Girl — Laufey";
+  }else{
+    playIcon.className = "triangle";
+    playIcon.innerHTML = "";
+    musicStatus.textContent = "Lover Girl — Laufey";
+  }
 
-        <!-- =========================
-             CONFIRMACIÓN
-        ========================= -->
+}
 
-        <section>
+playButton.addEventListener("click",async()=>{
 
-            <div class="section-title">
+  if(audio.paused){
 
-                <span>Necesito saber de vos</span>
+    try{
+      await audio.play();
+      setPlayingState(true);
+    }catch(error){
+      musicStatus.textContent =
+        "Agregá el archivo lover-girl.mp3 para reproducir la canción.";
+    }
 
-                <h2>¿Venís?</h2>
+  }else{
 
-                <p>
-                    Confirmá tu asistencia y contame
-                    si necesitás que tengamos en cuenta
-                    alguna restricción alimentaria.
-                </p>
+    audio.pause();
+    setPlayingState(false);
 
-            </div>
+  }
 
-            <div class="form-box">
+});
 
-                <h3>Confirmación</h3>
 
-                <p>
-                    Próximamente conectaremos este botón
-                    con el formulario de invitados.
-                </p>
+audio.addEventListener("timeupdate",()=>{
 
-                <div class="center">
+  if(!audio.duration || !isFinite(audio.duration)) return;
 
-                    <a href="#" class="main-button">
-                        CONFIRMAR ASISTENCIA
-                    </a>
+  const percentage =
+    (audio.currentTime / audio.duration) * 100;
 
-                </div>
+  progressFill.style.width = percentage + "%";
+  progressDot.style.left = percentage + "%";
 
-            </div>
+});
 
-        </section>
 
+audio.addEventListener("ended",()=>{
+  setPlayingState(false);
+  progressFill.style.width = "0%";
+  progressDot.style.left = "0%";
+});
 
-        <!-- =========================
-             CANCIONES
-        ========================= -->
 
-        <section>
+function seekFromPointer(event){
 
-            <div class="section-title">
+  if(!audio.duration || !isFinite(audio.duration)) return;
 
-                <span>Elegí una</span>
+  const rect = progressBar.getBoundingClientRect();
 
-                <h2>Playlist</h2>
+  const x = Math.max(
+    0,
+    Math.min(event.clientX - rect.left,rect.width)
+  );
 
-                <p>
-                    ¿Qué canción no puede faltar?
-                </p>
+  const percentage = x / rect.width;
 
-            </div>
+  audio.currentTime = percentage * audio.duration;
 
-            <div class="form-box">
+}
 
-                <div style="font-size:45px;">
-                    ♪
-                </div>
+progressBar.addEventListener("click",seekFromPointer);
 
-                <h3>Sugerí una canción</h3>
 
-                <p>
-                    Próximamente vas a poder
-                    dejar tu canción favorita.
-                </p>
+/* touch support for mobile */
+progressBar.addEventListener("touchstart",(event)=>{
+  const touch = event.touches[0];
 
-                <div class="center">
+  if(!audio.duration || !isFinite(audio.duration)) return;
 
-                    <a href="#" class="main-button">
-                        SUGERIR CANCIÓN
-                    </a>
+  const rect = progressBar.getBoundingClientRect();
 
-                </div>
+  const x = Math.max(
+    0,
+    Math.min(touch.clientX - rect.left,rect.width)
+  );
 
-            </div>
+  audio.currentTime =
+    (x / rect.width) * audio.duration;
+});
 
-        </section>
 
+document.getElementById("prevButton").addEventListener("click",()=>{
+  audio.currentTime = Math.max(0,audio.currentTime - 10);
+});
 
-        <!-- =========================
-             ÁLBUM
-        ========================= -->
 
-        <section>
+document.getElementById("nextButton").addEventListener("click",()=>{
+  if(audio.duration && isFinite(audio.duration)){
+    audio.currentTime =
+      Math.min(audio.duration,audio.currentTime + 10);
+  }
+});
 
-            <div class="section-title">
 
-                <span>Después de la fiesta</span>
+/* =========================================================
+   EVENT COUNTDOWN
+========================================================= */
 
-                <h2>Compartamos recuerdos</h2>
+const eventDate = new Date(CONFIG.eventDate).getTime();
 
-                <p>
-                    Subí tus fotos y ayudame a guardar
-                    todos los momentos de esta noche.
-                </p>
+function updateCountdown(){
 
-            </div>
+  const now = Date.now();
+  const distance = eventDate - now;
 
-            <div class="center">
+  if(distance <= 0){
+    ["days","hours","minutes","seconds"].forEach(id=>{
+      document.getElementById(id).textContent = "00";
+    });
+    return;
+  }
 
-                <a href="#" class="main-button">
-                    📸 ABRIR ÁLBUM
-                </a>
+  const days =
+    Math.floor(distance / 86400000);
 
-            </div>
+  const hours =
+    Math.floor((distance / 3600000) % 24);
 
-        </section>
+  const minutes =
+    Math.floor((distance / 60000) % 60);
 
-    </main>
+  const seconds =
+    Math.floor((distance / 1000) % 60);
 
+  document.getElementById("days").textContent =
+    String(days).padStart(2,"0");
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2,"0");
 
-    <footer>
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2,"0");
 
-        <h2>Gracias ♡</h2>
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2,"0");
 
-        <p>
-            Por formar parte de este momento.
-        </p>
+}
 
-        <p style="margin-top:30px;">
-            LUCÍA · MIS XV · 2026
-        </p>
+updateCountdown();
+setInterval(updateCountdown,1000);
 
-    </footer>
 
+/* =========================================================
+   REGALOS
+========================================================= */
 
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
+const giftDescriptions = {
 
-    <script>
+  "Ropa":
+    "Algo para usar: pantalones, remeras, gorras, medias o polainas pueden ser una linda opción. También me gusta mucho Hello Kitty.",
 
-        /* =========================
-           CUENTA REGRESIVA
-        ========================= */
+  "Papelería":
+    "Lápices, lapiceras de colores, marcadores, resaltadores, libretas, cuadernos, agendas o cosas lindas para decorar hojas.",
 
-        const targetDate =
-            new Date("October 24, 2026 21:00:00").getTime();
+  "Accesorios":
+    "Aritos, collares, pulseras, anillos, hebillas, moños, vinchas o accesorios para el pelo pueden ser una buena opción.",
 
-        function updateCountdown() {
+  "Tecnología":
+    "Una funda para el celular, accesorios para el teléfono, una batería portátil, un parlante o una cámara de fotos.",
 
-            const now = new Date().getTime();
+  "Maquillaje y cuidado personal":
+    "Productos de limpieza facial, cremas para la cara, rubores, rímel, sombras o brochas serían una linda opción.",
 
-            const difference = targetDate - now;
+  "Otro":
+    "Cartas, peluches, llaveros, velas, perfumes, vasos o botellas lindas, tazas, decoración, cosas de Hello Kitty, stickers, pósters, photocards y otros detalles especiales."
+};
 
-            if (difference <= 0) {
+const giftButtons =
+  document.querySelectorAll(".gift-button");
 
-                document.getElementById("days").textContent = "00";
-                document.getElementById("hours").textContent = "00";
-                document.getElementById("minutes").textContent = "00";
-                document.getElementById("seconds").textContent = "00";
+const giftResult =
+  document.getElementById("giftResult");
 
-                return;
-            }
+giftButtons.forEach(button=>{
 
-            const days =
-                Math.floor(difference / (1000 * 60 * 60 * 24));
+  button.addEventListener("click",()=>{
 
-            const hours =
-                Math.floor(
-                    (difference % (1000 * 60 * 60 * 24))
-                    / (1000 * 60 * 60)
-                );
+    giftButtons.forEach(b=>b.classList.remove("active"));
 
-            const minutes =
-                Math.floor(
-                    (difference % (1000 * 60 * 60))
-                    / (1000 * 60)
-                );
+    button.classList.add("active");
 
-            const seconds =
-                Math.floor(
-                    (difference % (1000 * 60))
-                    / 1000
-                );
+    const category = button.dataset.gift;
 
-            document.getElementById("days").textContent =
-                String(days).padStart(2, "0");
+    giftResult.textContent =
+      giftDescriptions[category];
 
-            document.getElementById("hours").textContent =
-                String(hours).padStart(2, "0");
+    giftResult.classList.add("show");
 
-            document.getElementById("minutes").textContent =
-                String(minutes).padStart(2, "0");
+  });
 
-            document.getElementById("seconds").textContent =
-                String(seconds).padStart(2, "0");
-        }
+});
 
-        updateCountdown();
 
-        setInterval(updateCountdown, 1000);
+/* =========================================================
+   FORMULARIOS
+========================================================= */
 
+const songButton =
+  document.getElementById("songRequestButton");
 
-        /* =========================
-           MODO OSCURO
-        ========================= */
+const rsvpButton =
+  document.getElementById("rsvpButton");
 
-        function toggleDark() {
 
-            document.body.classList.toggle("dark");
+songButton.addEventListener("click",(event)=>{
 
-            localStorage.setItem(
-                "modoOscuro",
-                document.body.classList.contains("dark")
-            );
+  if(!CONFIG.songForm){
+    event.preventDefault();
 
-        }
+    alert(
+      "El formulario para sugerir canciones todavía no está conectado."
+    );
 
-        if (
-            localStorage.getItem("modoOscuro") === "true"
-        ) {
+    return;
+  }
 
-            document.body.classList.add("dark");
+  songButton.href = CONFIG.songForm;
 
-        }
+});
 
 
-        /* =========================
-           MÚSICA
-        ========================= */
+rsvpButton.addEventListener("click",(event)=>{
 
-        let musicPlaying = false;
+  if(!CONFIG.rsvpForm){
+    event.preventDefault();
 
-        function toggleMusic() {
+    alert(
+      "El formulario de confirmación todavía no está conectado."
+    );
 
-            /*
-            Acá agregaremos posteriormente
-            la canción real.
+    return;
+  }
 
-            Por ahora solamente cambia
-            el estado del botón.
-            */
+  rsvpButton.href = CONFIG.rsvpForm;
 
-            musicPlaying = !musicPlaying;
-
-            const buttons =
-                document.querySelectorAll(".music-button");
-
-            buttons.forEach(button => {
-
-                button.textContent =
-                    musicPlaying ? "❚❚" : "▶";
-
-            });
-
-        }
-
-    </script>
+});
+</script>
 
 </body>
-                    </html>
+</html>
