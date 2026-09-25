@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#A50000">
-<title>Lucía — Mis XV</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Lucía — Mis XV</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
-
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet"><style>
 :root{
   --red:#A50000;
   --red-dark:#760000;
@@ -347,21 +342,6 @@ button{cursor:pointer}
   background:var(--cream);
   overflow:hidden;
 }
-.music-top-rose{
-  position:absolute;
-  width:210px;
-  right:-55px;
-  top:15px;
-  opacity:.88;
-}
-.music-bottom-rose{
-  position:absolute;
-  width:210px;
-  left:-70px;
-  bottom:15px;
-  opacity:.88;
-  transform:scaleX(-1);
-}
 .vinyl-player{
   width:min(520px,94vw);
   margin:15px auto 0;
@@ -462,7 +442,9 @@ button{cursor:pointer}
 .pause-bars{
   display:flex;gap:5px;
 }
-.pause-bars i{display:block;width:5px;height:22px;background:#fff4e9}
+.pause-bars i{
+  display:block;width:5px;height:22px;background:#fff4e9
+}
 .skip-prev:before,.skip-next:before{
   content:"";
   width:0;height:0;
@@ -497,36 +479,6 @@ button{cursor:pointer}
   font-size:3rem;
   color:var(--red);
   margin-top:25px;
-}
-
-/* ---------- photos ---------- */
-.photo-carousel{
-  display:flex;
-  gap:20px;
-  overflow-x:auto;
-  padding:10px 5px 24px;
-  scroll-snap-type:x mandatory;
-  scrollbar-width:thin;
-}
-.photo-card{
-  flex:0 0 270px;
-  height:340px;
-  scroll-snap-align:center;
-  padding:12px;
-  background:var(--paper);
-  border:1px solid var(--line);
-  box-shadow:0 14px 28px var(--shadow);
-  transform:rotate(-1deg);
-}
-.photo-card:nth-child(even){transform:rotate(1.1deg)}
-.photo-placeholder{
-  width:100%;height:100%;
-  display:grid;place-items:center;
-  text-align:center;
-  color:var(--muted);
-  font-family:"Cormorant Garamond",serif;
-  font-size:1.25rem;
-  background:linear-gradient(135deg,var(--cream-2),var(--paper));
 }
 
 /* ---------- event ---------- */
@@ -768,381 +720,278 @@ footer{
   .envelope-wrap{margin-top:35px}
   .vinyl-stage{width:min(420px,88vw)}
 }
-</style>
-</head>
-
-<body>
-
-<button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro u oscuro">
+</style></head><body><button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo claro u oscuro">
   <span></span>
-</button>
-
-<!-- ===================== PORTADA ===================== -->
-<section id="intro">
-
-  <div class="intro-roses top">
+</button><!-- ===================== PORTADA ===================== --><section id="intro">  <div class="intro-roses top">
     <img src="assets/roses-top.png" alt="">
-  </div>
-
-  <div class="intro-roses bottom">
+  </div>  <div class="intro-roses bottom">
     <img src="assets/roses-bottom.png" alt="">
-  </div>
+  </div>  <div class="intro-content"><div class="intro-name">LUCÍA</div>
+<div class="intro-xv">Mis XV</div>
+<div class="intro-date">24 - 10 - 26</div>
 
-  <div class="intro-content">
+<div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Abrir invitación">
+  <div class="envelope-shadow"></div>
 
-    <div class="intro-name">LUCÍA</div>
-    <div class="intro-xv">Mis XV</div>
-    <div class="intro-date">24 - 10 - 26</div>
+  <div class="envelope">
 
-    <div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Abrir invitación">
-      <div class="envelope-shadow"></div>
+    <div class="envelope-paper-texture"></div>
 
-      <div class="envelope">
+    <div class="envelope-flap"></div>
 
-        <div class="envelope-paper-texture"></div>
+    <div class="envelope-front"></div>
 
-        <div class="envelope-flap"></div>
-
-        <div class="envelope-front"></div>
-
-        <div class="envelope-seal"></div>
-
-      </div>
-    </div>
-
-    <div class="open-instruction">
-      Tocá el sobre para abrir tu invitación
-    </div>
-    <div class="open-line"></div>
+    <div class="envelope-seal"></div>
 
   </div>
-</section>
+</div>
 
+<div class="open-instruction">
+  Tocá el sobre para abrir tu invitación
+</div>
+<div class="open-line"></div>
 
-<!-- ===================== INVITACIÓN ===================== -->
-<main id="invitation">
+  </div>
+</section><!-- ===================== INVITACIÓN ===================== --><main id="invitation">  <!-- MÚSICA -->  <section class="section music-section"><h1 class="section-title">Música para acompañar la noche</h1>
+<p class="section-subtitle">Poné play y recorré la invitación con música</p>
+<div class="section-ornament"></div>
 
-  <!-- MÚSICA -->
-  <section class="section music-section">
+<div class="vinyl-player">
 
-    <div class="music-top-rose">
-      <img src="assets/roses-top.png" alt="">
+  <div class="vinyl-stage">
+
+    <div class="vinyl-image" id="vinyl">
+      <img src="assets/vinyl-ref.png" alt="Vinilo">
     </div>
 
-    <div class="music-bottom-rose">
-      <img src="assets/roses-bottom.png" alt="">
+    <!-- Esta luz está FUERA del elemento que gira -->
+    <div class="vinyl-light"></div>
+
+  </div>
+
+  <div class="player-controls">
+
+    <div class="progress" id="progressBar" aria-label="Progreso de la canción">
+      <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-dot" id="progressDot"></div>
     </div>
 
-    <h1 class="section-title">Música para acompañar la noche</h1>
-    <p class="section-subtitle">Poné play y recorré la invitación con música</p>
-    <div class="section-ornament"></div>
+    <div class="controls">
 
-    <div class="vinyl-player">
+      <button class="control-btn skip-prev" id="prevButton" aria-label="Retroceder"></button>
 
-      <div class="vinyl-stage">
-
-        <div class="vinyl-image" id="vinyl">
-          <img src="assets/vinyl-ref.png" alt="Vinilo">
-        </div>
-
-        <!-- Esta luz está FUERA del elemento que gira -->
-        <div class="vinyl-light"></div>
-
-      </div>
-
-      <div class="player-controls">
-
-        <div class="progress" id="progressBar" aria-label="Progreso de la canción">
-          <div class="progress-fill" id="progressFill"></div>
-          <div class="progress-dot" id="progressDot"></div>
-        </div>
-
-        <div class="controls">
-
-          <button class="control-btn skip-prev" id="prevButton" aria-label="Retroceder"></button>
-
-          <button class="control-btn play" id="playButton" aria-label="Reproducir">
-            <span class="triangle" id="playIcon"></span>
-          </button>
-
-          <button class="control-btn skip-next" id="nextButton" aria-label="Avanzar"></button>
-
-        </div>
-
-      </div>
-
-      <div class="music-status" id="musicStatus">
-        Lover Girl — Laufey
-      </div>
-
-    </div>
-
-    <!--
-      IMPORTANTE:
-      Cuando tengas el archivo de audio, guardalo como:
-      assets/lover-girl.mp3
-
-      El código ya está preparado para reproducirlo.
-    -->
-
-  </section>
-
-
-  <!-- TEXTO DE INVITACIÓN -->
-  <section class="section">
-
-    <div class="invite-text">
-
-      <h2 class="section-title">Una noche para recordar</h2>
-      <div class="section-ornament"></div>
-
-      <p>Con mucho gusto quiero invitarte a celebrar conmigo mis XV años.</p>
-
-      <p>Quiero compartir este momento con las personas que forman parte de mi vida y pasar juntos una linda noche, acompañados de música, comida y buenos momentos.</p>
-
-      <p>Me gustaría mucho poder contar con tu presencia y que seas parte de esta celebración.</p>
-
-      <p>Espero que puedas acompañarme.</p>
-
-      <div class="invite-signature">Lucía</div>
-
-    </div>
-
-  </section>
-
-
-  <!-- FOTOS -->
-  <section class="section">
-
-    <h2 class="section-title">Mis recuerdos</h2>
-    <p class="section-subtitle">Un pequeño recorrido por algunos momentos de mi vida</p>
-    <div class="section-ornament"></div>
-
-    <div class="photo-carousel">
-
-      <div class="photo-card"><div class="photo-placeholder">Tu foto 1</div></div>
-      <div class="photo-card"><div class="photo-placeholder">Tu foto 2</div></div>
-      <div class="photo-card"><div class="photo-placeholder">Tu foto 3</div></div>
-      <div class="photo-card"><div class="photo-placeholder">Tu foto 4</div></div>
-      <div class="photo-card"><div class="photo-placeholder">Tu foto 5</div></div>
-
-    </div>
-
-  </section>
-
-
-  <!-- EVENTO -->
-  <section class="section">
-
-    <h2 class="section-title">El evento</h2>
-    <div class="section-ornament"></div>
-
-    <div class="event-grid">
-
-      <div class="event-card">
-        <div class="event-label">Fecha</div>
-        <div class="event-value">24 - 10 - 26</div>
-      </div>
-
-      <div class="event-card">
-        <div class="event-label">Horario</div>
-        <div class="event-value">21:00 a 05:00 hs</div>
-      </div>
-
-      <div class="event-card">
-        <div class="event-label">Lugar</div>
-        <div class="event-value">Salón La Jarrilla - Estrella</div>
-      </div>
-
-    </div>
-
-    <div class="map-area">
-
-      <a
-        class="map-button"
-        href="https://maps.app.goo.gl/BCetAEy5Hn3bXAWS8?g_st=ac"
-        target="_blank"
-        rel="noopener"
-      >
-        Ver ubicación
-      </a>
-
-      <p class="map-help">
-        Tocá el botón para abrir la dirección en Google Maps.
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <!-- DRESS CODE -->
-  <section class="section">
-
-    <h2 class="section-title">Código de vestimenta</h2>
-    <p class="section-subtitle">Para acompañar la elegancia de la noche</p>
-    <div class="section-ornament"></div>
-
-    <div class="dress-card">
-
-      <div class="dress-main">Formal</div>
-
-      <p>Elegante, cómodo y acorde a una noche especial.</p>
-
-      <div class="dress-red">
-        <div class="red-swatch"></div>
-        <span>El color rojo queda reservado para la quinceañera.</span>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- CANCIÓN -->
-  <section class="section">
-
-    <h2 class="section-title">Elegí una canción</h2>
-    <p class="section-subtitle">¿Qué canción no puede faltar en la fiesta?</p>
-    <div class="section-ornament"></div>
-
-    <div class="simple-card">
-
-      <p>
-        Podés dejarme una canción para que forme parte
-        de la música de la noche.
-      </p>
-
-      <!-- Reemplazaremos este enlace por el Google Form -->
-      <a href="#" class="action-button" id="songRequestButton">
-        Sugerir una canción
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- REGALOS -->
-  <section class="section">
-
-    <div class="gift-intro">
-
-      <h3>¿Querés regalarle algo a Lucía pero no sabés qué?</h3>
-
-      <p>
-        Un pequeño juego para encontrar una idea.
-        <br>
-        Presioná una categoría y mirá algunas opciones.
-      </p>
-
-    </div>
-
-    <div class="gift-grid">
-
-      <button class="gift-button" data-gift="Ropa">
-        Ropa
+      <button class="control-btn play" id="playButton" aria-label="Reproducir">
+        <span class="triangle" id="playIcon"></span>
       </button>
 
-      <button class="gift-button" data-gift="Papelería">
-        Papelería
-      </button>
-
-      <button class="gift-button" data-gift="Accesorios">
-        Accesorios
-      </button>
-
-      <button class="gift-button" data-gift="Tecnología">
-        Tecnología
-      </button>
-
-      <button class="gift-button" data-gift="Maquillaje y cuidado personal">
-        Maquillaje y cuidado personal
-      </button>
-
-      <button class="gift-button" data-gift="Otro">
-        Otro
-      </button>
+      <button class="control-btn skip-next" id="nextButton" aria-label="Avanzar"></button>
 
     </div>
 
-    <div class="gift-result" id="giftResult"></div>
+  </div>
 
-  </section>
+  <div class="music-status" id="musicStatus">
+    Lover Girl — Laufey
+  </div>
 
+</div>
 
-  <!-- CUENTA REGRESIVA -->
-  <section class="section">
+<!--
+  IMPORTANTE:
+  Cuando tengas el archivo de audio, guardalo como:
+  assets/lover-girl.mp3
 
-    <h2 class="section-title">Falta cada vez menos</h2>
-    <p class="section-subtitle">Nos vemos el 24 de octubre</p>
-    <div class="section-ornament"></div>
+  El código ya está preparado para reproducirlo.
+-->
 
-    <div class="countdown">
+  </section>  <!-- TEXTO DE INVITACIÓN -->  <section class="section"><div class="invite-text">
 
-      <div class="time-box">
-        <div class="time-number" id="days">00</div>
-        <div class="time-label">Días</div>
-      </div>
+  <h2 class="section-title">Una noche para recordar</h2>
+  <div class="section-ornament"></div>
 
-      <div class="time-box">
-        <div class="time-number" id="hours">00</div>
-        <div class="time-label">Horas</div>
-      </div>
+  <p>Con mucho gusto quiero invitarte a celebrar conmigo mis XV años.</p>
 
-      <div class="time-box">
-        <div class="time-number" id="minutes">00</div>
-        <div class="time-label">Minutos</div>
-      </div>
+  <p>Quiero compartir este momento con las personas que forman parte de mi vida y pasar juntos una linda noche, acompañados de música, comida y buenos momentos.</p>
 
-      <div class="time-box">
-        <div class="time-number" id="seconds">00</div>
-        <div class="time-label">Segundos</div>
-      </div>
+  <p>Me gustaría mucho poder contar con tu presencia y que seas parte de esta celebración.</p>
 
-    </div>
+  <p>Espero que puedas acompañarme.</p>
 
-  </section>
+  <div class="invite-signature">Lucía</div>
 
+</div>
 
-  <!-- RSVP -->
-  <section class="section">
+  </section>  <!-- EVENTO -->  <section class="section"><h2 class="section-title">El evento</h2>
+<div class="section-ornament"></div>
 
-    <h2 class="section-title">Confirmación de asistencia</h2>
-    <p class="section-subtitle">Tu respuesta me ayuda a preparar todo</p>
-    <div class="section-ornament"></div>
+<div class="event-grid">
 
-    <div class="rsvp-box">
+  <div class="event-card">
+    <div class="event-label">Fecha</div>
+    <div class="event-value">24 - 10 - 26</div>
+  </div>
 
-      <p>
-        Para organizar la celebración, necesito que confirmes
-        si vas a poder acompañarme.
-      </p>
+  <div class="event-card">
+    <div class="event-label">Horario</div>
+    <div class="event-value">21:00 a 05:00 hs</div>
+  </div>
 
-      <p>
-        La confirmación incluye nombre y apellido, asistencia
-        y, en caso de asistir, cualquier restricción alimentaria.
-      </p>
+  <div class="event-card">
+    <div class="event-label">Lugar</div>
+    <div class="event-value">Salón La Jarrilla - Estrella</div>
+  </div>
 
-      <!-- Reemplazaremos este enlace por el Google Form -->
-      <a href="#" class="action-button" id="rsvpButton">
-        Confirmar asistencia
-      </a>
+</div>
 
-    </div>
+<div class="map-area">
 
-  </section>
+  <a
+    class="map-button"
+    href="https://maps.app.goo.gl/BCetAEy5Hn3bXAWS8?g_st=ac"
+    target="_blank"
+    rel="noopener"
+  >
+    Ver ubicación
+  </a>
 
+  <p class="map-help">
+    Tocá el botón para abrir la dirección en Google Maps.
+  </p>
 
-  <footer>
+</div>
+
+  </section>  <!-- DRESS CODE -->  <section class="section"><h2 class="section-title">Código de vestimenta</h2>
+<p class="section-subtitle">Para acompañar la elegancia de la noche</p>
+<div class="section-ornament"></div>
+
+<div class="dress-card">
+
+  <div class="dress-main">Formal</div>
+
+  <p>Elegante, cómodo y acorde a una noche especial.</p>
+
+  <div class="dress-red">
+    <div class="red-swatch"></div>
+    <span>El color rojo queda reservado para la quinceañera.</span>
+  </div>
+
+</div>
+
+  </section>  <!-- CANCIÓN -->  <section class="section"><h2 class="section-title">Elegí una canción</h2>
+<p class="section-subtitle">¿Qué canción no puede faltar en la fiesta?</p>
+<div class="section-ornament"></div>
+
+<div class="simple-card">
+
+  <p>
+    Podés dejarme una canción para que forme parte
+    de la música de la noche.
+  </p>
+
+  <!-- Reemplazaremos este enlace por el Google Form -->
+  <a href="#" class="action-button" id="songRequestButton">
+    Sugerir una canción
+  </a>
+
+</div>
+
+  </section>  <!-- REGALOS -->  <section class="section"><div class="gift-intro">
+
+  <h3>¿Querés regalarle algo a Lucía pero no sabés qué?</h3>
+
+  <p>
+    Un pequeño juego para encontrar una idea.
+    <br>
+    Presioná una categoría y mirá algunas opciones.
+  </p>
+
+</div>
+
+<div class="gift-grid">
+
+  <button class="gift-button" data-gift="Ropa">
+    Ropa
+  </button>
+
+  <button class="gift-button" data-gift="Papelería">
+    Papelería
+  </button>
+
+  <button class="gift-button" data-gift="Accesorios">
+    Accesorios
+  </button>
+
+  <button class="gift-button" data-gift="Tecnología">
+    Tecnología
+  </button>
+
+  <button class="gift-button" data-gift="Maquillaje y cuidado personal">
+    Maquillaje y cuidado personal
+  </button>
+
+  <button class="gift-button" data-gift="Otro">
+    Otro
+  </button>
+
+</div>
+
+<div class="gift-result" id="giftResult"></div>
+
+  </section>  <!-- CUENTA REGRESIVA -->  <section class="section"><h2 class="section-title">Falta cada vez menos</h2>
+<p class="section-subtitle">Nos vemos el 24 de octubre</p>
+<div class="section-ornament"></div>
+
+<div class="countdown">
+
+  <div class="time-box">
+    <div class="time-number" id="days">00</div>
+    <div class="time-label">Días</div>
+  </div>
+
+  <div class="time-box">
+    <div class="time-number" id="hours">00</div>
+    <div class="time-label">Horas</div>
+  </div>
+
+  <div class="time-box">
+    <div class="time-number" id="minutes">00</div>
+    <div class="time-label">Minutos</div>
+  </div>
+
+  <div class="time-box">
+    <div class="time-number" id="seconds">00</div>
+    <div class="time-label">Segundos</div>
+  </div>
+
+</div>
+
+  </section>  <!-- RSVP -->  <section class="section"><h2 class="section-title">Confirmación de asistencia</h2>
+<p class="section-subtitle">Tu respuesta me ayuda a preparar todo</p>
+<div class="section-ornament"></div>
+
+<div class="rsvp-box">
+
+  <p>
+    Para organizar la celebración, necesito que confirmes
+    si vas a poder acompañarme.
+  </p>
+
+  <p>
+    La confirmación incluye nombre y apellido, asistencia
+    y, en caso de asistir, cualquier restricción alimentaria.
+  </p>
+
+  <!-- Reemplazaremos este enlace por el Google Form -->
+  <a href="#" class="action-button" id="rsvpButton">
+    Confirmar asistencia
+  </a>
+
+</div>
+
+  </section>  <footer>
     <div class="footer-name">Lucía</div>
     <div class="footer-date">24 · 10 · 2026</div>
-  </footer>
-
-</main>
-
-
-<script>
+  </footer></main><script>
 /* =========================================================
    CONFIGURACIÓN
    Cuando terminemos las integraciones solo tendremos que
@@ -1486,7 +1335,5 @@ rsvpButton.addEventListener("click",(event)=>{
   rsvpButton.href = CONFIG.rsvpForm;
 
 });
-</script>
-
-</body>
-</html>
+</script></body>
+  </html>
